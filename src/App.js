@@ -11,6 +11,7 @@ import {
 function App() {
   return (
     <BrowserRouter>
+    <div className=" bg-[#000] ">
       <Navbar />
       <Routes>
         <Route path="/" element={<Feed />} />
@@ -18,6 +19,7 @@ function App() {
         <Route path="/search/:searchTerm" element={<SearchFeed />} />
         <Route path="/channel/:id" element={<ChannelDetails />} />
       </Routes>
+      </div>
     </BrowserRouter>
   );
 }
