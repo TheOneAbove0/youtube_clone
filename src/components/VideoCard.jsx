@@ -7,13 +7,12 @@ import {
   demoChannelTitle,
 } from "../components/utils/constants";
 import { Link } from "react-router-dom";
-import {AiFillCheckCircle} from 'react-icons/ai';
+import { AiFillCheckCircle } from "react-icons/ai";
 
 export default function VideoCard({
-  video: {
-    id: { videoId },
-    snippet,
-  },
+  video:{id:{
+    videoId
+  }, snippet}
 }) {
   // console.log(video);
   console.log(videoId, snippet);
@@ -30,22 +29,28 @@ export default function VideoCard({
       </div>
       <div className="h-[126px]  bg-[#1e1e1e] ">
         <div>
-        <Link to={videoId ? `/video/${videoId}` : demoVideoUrl}>
-        <p className=" text-white text-[17px] cursor-pointer mt-2 ml-2 ">{snippet?.title.slice(0, 60) || demoVideoTitle.slice(0, 60) }</p>
-        </Link>
-        </div>
-    
-        <div className=" flex items-center cursor-pointer ml-2 mt-2 text-[16px] gap-1 text-gray-600 ">
-          <Link to={snippet?.channelId? `/channel/${snippet?.channelId}`: demoChannelUrl } >
-          <span className=" text-[16px] text-gray-600  ">{snippet?.channelTitle || demoChannelTitle }</span>
+          <Link to={videoId ? `/video/${videoId}` : demoVideoUrl}>
+            <p className=" text-white text-[17px] cursor-pointer mt-2 ml-2 ">
+              {snippet?.title.slice(0, 60) || demoVideoTitle.slice(0, 60)}
+            </p>
           </Link>
-          
-          <AiFillCheckCircle className=" text-[14px] " />
-
         </div>
-          
-        
 
+        <div className=" flex items-center cursor-pointer ml-2 mt-2 text-[16px] gap-1 text-gray-600 ">
+          <Link
+            to={
+              snippet?.channelId
+                ? `/channel/${snippet?.channelId}`
+                : demoChannelUrl
+            }
+          >
+            <span className=" text-[16px] text-gray-600  ">
+              {snippet?.channelTitle || demoChannelTitle}
+            </span>
+          </Link>
+
+          <AiFillCheckCircle className=" text-[14px] " />
+        </div>
       </div>
     </div>
   );
