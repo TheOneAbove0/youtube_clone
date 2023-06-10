@@ -1,23 +1,46 @@
-import React from "react";
-import VideoCard from "./VideoCard";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Box } from "@mui/material";
 
+import { Videos, ChannelCard } from "./";
+import { fetchFromAPI } from "../components/utils/fetchFromAPI";
 
-export default function ChannelDetails() {
-  const {id} =useParams();
+const ChannelDetail = () => {
+  const [channelDetail, setChannelDetail] = useState();
+  const [videos, setVideos] = useState(null);
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchResults = async () => {
+      const data = await fetchFromAPI(`channels?part=snippet&id=${id}`);
+
+      setChannelDetail(data?.items[0]);
+
+      const videosData = await fetchFromAPI(`search?channelId=${id}&part=snippet%2Cid&order=date`);
+
+      setVideos(videosData?.items);
+    };
+
+    fetchResults();
+  }, [id]);
+
   return (
-    <div className=" h-[90vh] bg-[#000]">
-      <div className=" w-full relative h-[300px] bg-gradient-to-r pt-56 from-sky-500 to-fuchsia-500">
-        <div className=" w-[180px] rounded-full  h-[180px] bg-green-500 mx-auto  "></div>
-        <div className=" mt-5">
-          <div className=" flex gap-2 mx-auto  text-[20px]  items-center justify-center ">
-            <p>Mr.Beast</p>
-            <span>{id}</span>
-          </div>
-
-        </div>
-      </div>
-      {/* <VideoCard /> */}
-    </div>
+    <Box minHeight="95vh">
+      <Box>
+        <div style={{
+          height:'300px',
+          background: 'linear-gradient(90deg, rgba(0,238,247,1) 0%, rgba(206,3,184,1) 100%, rgba(0,212,255,1) 100%)',
+          zIndex: 10,
+        }} />
+        <ChannelCard channelDetail={channelDetail} marginTop="-93px" />
+      </Box>
+      <Box p={2} display="flex">
+      <Box sx={{ mr: { sm: '100px' } }}/>
+        <Videos videos={videos} />
+      </Box>
+    </Box>
   );
-}
+};
+
+export default ChannelDetail;
