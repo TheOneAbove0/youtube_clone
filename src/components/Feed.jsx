@@ -6,12 +6,16 @@ import Videos from "./Videos";
 export default function Feed() {
   const [selectedCategory, setSelectedCategory] = useState("New");
   const [videos, setVideos] = useState(null);
+  console.log('apple');
+  
+  console.log(videos);
 
   useEffect(() => {
     setVideos(null);
 
-    fetchFromAPI(`search?part=snippet&q=${selectedCategory}`)
+    fetchFromAPI(`search?part=snippet&q=football`)
       .then((data) => setVideos(data.items))
+
     }, [selectedCategory]);
 
   return (
