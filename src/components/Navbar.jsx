@@ -9,6 +9,7 @@ export default function Navbar() {
     <div className=' sticky top-0 p-2 items-center justify-between bg-[#000] flex  '>
       <Link to='/' >
         <div className=' flex items-center '>
+          
       <img src={logo} className=' w-12  ' alt="youtube-icon" />
       <div className='relative flex'>
       <span className='text-white   text-[24px] font-semibold '>Youtube</span>
